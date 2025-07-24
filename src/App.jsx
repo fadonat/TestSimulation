@@ -7,45 +7,80 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const questions = [
   {
-    question: "¿Qué se requiere para crear una relación N:N entre entidades?",
-    options: ["Agregar claves foráneas cruzadas entre las dos entidades.", "Crear una tercera entidad con dos atributos de tipo Id.", "Usar una Client Variable para vincular los registros.", "Ninguna de las anteriores."],
+    question: "¿Cuál es el propósito de las Client Variables en OutSystems?",
+    options: ["Almacenar datos persistentes en el servidor.", "Compartir datos entre usuarios.", "Guardar información específica del usuario en el cliente.", "Guardar datos globales del módulo."],
+    answer: 2
+  },
+  {
+    question: "¿Qué tipo de relaciones se puede definir entre entidades en OutSystems?",
+    options: ["Uno a uno, uno a muchos, muchos a muchos.", "Solo uno a muchos.", "Solo muchos a muchos.", "Solo uno a uno."],
+    answer: 0
+  },
+  {
+    question: "¿Qué widget usarías para mostrar una lista de registros?",
+    options: ["Dropdown.", "Table.", "Form.", "Input."],
     answer: 1
   },
   {
-    question: "¿Qué tipo de acción puede ejecutarse en el cliente en aplicaciones Reactive?",
-    options: ["Server Action.", "Client Action.", "Aggregate Action.", "Database Action."],
+    question: "¿Cuál es el objetivo del evento OnChange en un Dropdown?",
+    options: ["Actualizar los datos del servidor.", "Reiniciar el formulario.", "Reaccionar a un cambio de selección.", "Ejecutar una validación global."],
+    answer: 2
+  },
+  {
+    question: "¿Qué componente permite dividir la lógica visual en partes reutilizables?",
+    options: ["Screen.", "Entity.", "Block.", "Aggregate."],
+    answer: 2
+  },
+  {
+    question: "¿Cuál es la diferencia entre una Client Action y una Server Action?",
+    options: ["La Client Action solo se usa en Web tradicional.", "La Server Action corre en el navegador.", "La Client Action corre en el navegador y la Server en el servidor.", "No hay diferencia."],
+    answer: 2
+  },
+  {
+    question: "¿Qué propiedad permite que un Aggregate se ejecute bajo demanda?",
+    options: ["Start Fetching.", "Only On Trigger.", "Only On Demand.", "Auto Run."],
+    answer: 2
+  },
+  {
+    question: "¿Qué significa marcar una Entity como Public?",
+    options: ["Puede ser usada por otros módulos.", "Puede ser accedida desde un navegador.", "Se muestra como una API.", "Permite relaciones externas."],
+    answer: 0
+  },
+  {
+    question: "¿Cuál es el propósito del evento OnInitialize en una Screen?",
+    options: ["Cargar la interfaz.", "Establecer variables o lógica inicial.", "Guardar datos.", "Actualizar el estado de sesión."],
     answer: 1
   },
   {
-    question: "¿Cuál es el propósito principal de un Aggregate en OutSystems?",
-    options: ["Crear estructuras de datos.", "Mostrar errores de la base de datos.", "Consultar y filtrar datos.", "Diseñar pantallas de usuario."],
+    question: "¿Qué estructura OutSystems se usa para agrupar lógicamente funcionalidad?",
+    options: ["Application.", "Module.", "Entity.", "Theme."],
+    answer: 1
+  },
+  {
+    question: "¿Qué componente OutSystems se usa para capturar entrada de datos?",
+    options: ["Input.", "Table.", "Label.", "Container."],
+    answer: 0
+  },
+  {
+    question: "¿Qué acción debes usar para validar que un campo obligatorio ha sido llenado?",
+    options: ["CheckRequired().", "ValidForm().", "Form.Valid.", "ValidateInput()."],
     answer: 2
   },
   {
-    question: "¿Qué evento del ciclo de vida se ejecuta primero al cargar una Screen?",
-    options: ["On Ready.", "On After Fetch.", "On Initialize.", "On Render."],
+    question: "¿Qué rol mínimo se requiere para acceder a una Screen protegida por Roles?",
+    options: ["Anonymous.", "Registered.", "El rol especificado.", "Default."],
     answer: 2
   },
   {
-    question: "¿Qué hace el nodo 'Trigger Event' en un Block?",
-    options: ["Notifica a un Block hijo de un evento padre.", "Ejecuta una Client Action dentro de un Block.", "Permite que un Block informe a su Screen o padre que algo ocurrió.", "Ejecuta una Server Action de forma asíncrona."],
-    answer: 2
+    question: "¿Qué herramienta OutSystems te permite verificar los datos de una variable en tiempo real?",
+    options: ["Service Studio Debugger.", "Integration Studio.", "Lifetime.", "Forge."],
+    answer: 0
   },
   {
-    question: "¿Qué validaciones se ejecutan automáticamente cuando un botón con validaciones integradas establecidas en 'Yes' es presionado dentro de un Form?",
-    options: ["Solo las validaciones de los campos requeridos.", "Validaciones personalizadas definidas por el desarrollador.", "Validaciones de campos obligatorios y tipos de datos de entrada.", "Validaciones de campos requeridos y campos utilizados en lógica posterior."],
+    question: "¿Qué permite la función de 'Expose Read Only' en una Entity?",
+    options: ["Modificar atributos.", "Permitir relaciones externas.", "Acceder sin modificar desde otros módulos.", "Ocultar la Entity."],
     answer: 2
-  },
-  ...Array.from({ length: 44 }, (_, i) => ({
-    question: `Pregunta de práctica ${i + 7}`,
-    options: [
-      `Opción 1 de pregunta ${i + 7}`,
-      `Opción 2 de pregunta ${i + 7}`,
-      `Opción 3 de pregunta ${i + 7}`,
-      `Opción 4 de pregunta ${i + 7}`
-    ],
-    answer: Math.floor(Math.random() * 4)
-  }))
+  }
 ];
 
 
