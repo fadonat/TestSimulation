@@ -124,7 +124,7 @@ export default function QuizApp() {
 
   if (!started) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-900 text-gray-100 font-sans">
+    <div className="min-h-screen flex items-center justify-center bg-gray-900 text-gray-100 font-sans px-4">
         <Card className="max-w-md w-full">
           <CardContent className="p-6 space-y-4">
             <h1 className="text-3xl font-bold">Simulador de Examen</h1>
@@ -197,7 +197,7 @@ export default function QuizApp() {
                   );
                 })}
               </RadioGroup>
-              <div className="flex justify-end mt-20">
+              <div className="flex justify-end mt-[30px]">
                 <Button onClick={handleNext}>
                   {current === questions.length - 1 ? "Enviar" : "Siguiente"}
                 </Button>
