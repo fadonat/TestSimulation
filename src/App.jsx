@@ -83,7 +83,6 @@ const questions = [
   }
 ];
 
-
 export default function QuizApp() {
   const [userName, setUserName] = useState("");
   const [started, setStarted] = useState(false);
@@ -100,21 +99,24 @@ export default function QuizApp() {
     }
   };
 
-  const handleNext = () => setCurrent((prev) => Math.min(prev + 1, questions.length - 1));
-  const handlePrev = () => setCurrent((prev) => Math.max(prev - 1, 0));
-  const handleSubmit = () => {
-    const result = {
-      name: userName,
-      score,
-      total: questions.length,
-      percentage: Math.round((score / questions.length) * 100),
-      date: new Date().toLocaleString()
-    };
-    const existing = JSON.parse(localStorage.getItem("examResults") || "[]");
-    existing.push(result);
-    localStorage.setItem("examResults", JSON.stringify(existing));
-    setSubmitted(true);
+  const handleNext = () => {
+    if (current === questions.length - 1) {
+      const result = {
+        name: userName,
+        score,
+        total: questions.length,
+        percentage: Math.round((score / questions.length) * 100),
+        date: new Date().toLocaleString()
+      };
+      const existing = JSON.parse(localStorage.getItem("examResults") || "[]");
+      existing.push(result);
+      localStorage.setItem("examResults", JSON.stringify(existing));
+      setSubmitted(true);
+    } else {
+      setCurrent((prev) => prev + 1);
+    }
   };
+
   const handleStart = () => setStarted(true);
 
   const score = answers.reduce((acc, a, i) => acc + (a === questions[i].answer ? 1 : 0), 0);
@@ -142,6 +144,20 @@ export default function QuizApp() {
     );
   }
 
+  if (submitted) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-900 text-gray-100 font-sans">
+        <Card className="max-w-2xl w-full bg-green-100 text-black">
+          <CardContent className="p-6">
+            <p className="text-2xl font-bold">
+              Resultado de {userName}: {score} de {questions.length} correctas ({Math.round((score / questions.length) * 100)}%)
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100 font-sans p-4">
       <div className="max-w-2xl mx-auto mb-4">
@@ -162,43 +178,32 @@ export default function QuizApp() {
           className="max-w-2xl mx-auto space-y-4"
         >
           <Card className="bg-gray-800">
-            <CardContent className="p-6 space-y-4">
+            <CardContent className="p-6 space-y-6">
               <h2 className="text-xl font-bold">Pregunta {current + 1}</h2>
               <p>{questions[current].question}</p>
               <RadioGroup
                 value={answers[current]?.toString() || ""}
                 onValueChange={handleSelect}
+                className="space-y-3"
               >
                 {questions[current].options.map((opt, i) => {
                   const isCorrect = submitted && i === questions[current].answer;
                   const isWrong = submitted && answers[current] === i && i !== questions[current].answer;
                   return (
-                    <div key={i} className={`flex items-center space-x-2 ${isCorrect ? 'text-green-400' : ''} ${isWrong ? 'text-red-400' : ''}`}>
+                    <div key={i} className={`flex items-center space-x-4 ${isCorrect ? 'text-green-400' : ''} ${isWrong ? 'text-red-400' : ''}`}>
                       <RadioGroupItem value={i.toString()} disabled={submitted} />
                       <label>{opt}</label>
                     </div>
                   );
                 })}
               </RadioGroup>
-              <div className="flex justify-between mt-4">
-                <Button onClick={handlePrev} disabled={current === 0}>Anterior</Button>
-                {current === questions.length - 1 ? (
-                  <Button onClick={handleSubmit}>Enviar</Button>
-                ) : (
-                  <Button onClick={handleNext}>Siguiente</Button>
-                )}
+              <div className="flex justify-end mt-8">
+                <Button onClick={handleNext}>
+                  {current === questions.length - 1 ? "Enviar" : "Siguiente"}
+                </Button>
               </div>
             </CardContent>
           </Card>
-          {submitted && (
-            <Card className="bg-green-100 text-black">
-              <CardContent className="p-4">
-                <p className="text-lg font-semibold">
-                  Resultado de {userName}: {score} de {questions.length} correctas ({Math.round((score / questions.length) * 100)}%)
-                </p>
-              </CardContent>
-            </Card>
-          )}
         </motion.div>
       </AnimatePresence>
     </div>
