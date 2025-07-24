@@ -175,7 +175,7 @@ export default function QuizApp() {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -50 }}
           transition={{ duration: 0.3 }}
-          className="max-w-2xl mx-auto space-y-4"
+          className="max-w-2xl mx-auto pt-8 space-y-4"
         >
           <Card className="bg-gray-800">
             <CardContent className="p-6 space-y-6">
@@ -190,14 +190,14 @@ export default function QuizApp() {
                   const isCorrect = submitted && i === questions[current].answer;
                   const isWrong = submitted && answers[current] === i && i !== questions[current].answer;
                   return (
-                    <div key={i} className={`flex items-center space-x-4 ${isCorrect ? 'text-green-400' : ''} ${isWrong ? 'text-red-400' : ''}`}>
+                    <div key={i} className={`flex items-center gap-[10px] ${isCorrect ? 'text-green-400' : ''} ${isWrong ? 'text-red-400' : ''}`}>
                       <RadioGroupItem value={i.toString()} disabled={submitted} />
                       <label>{opt}</label>
                     </div>
                   );
                 })}
               </RadioGroup>
-              <div className="flex justify-end mt-8">
+              <div className="flex justify-end mt-20">
                 <Button onClick={handleNext}>
                   {current === questions.length - 1 ? "Enviar" : "Siguiente"}
                 </Button>
