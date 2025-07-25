@@ -4,6 +4,8 @@ import { Button } from "./components/ui/button";
 import { RadioGroup, RadioGroupItem } from "./components/ui/radio-group";
 import { Input } from "./components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
+import { CheckCircleIcon, XCircleIcon } from 'lucide-react';
+
 
 const questions = [
   {
@@ -547,7 +549,7 @@ export default function QuizApp() {
       </div>
     );
   }
-  
+
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100 font-sans p-4">
       <div className="max-w-2xl mx-auto mb-4">
