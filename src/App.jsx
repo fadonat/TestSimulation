@@ -497,47 +497,57 @@ export default function QuizApp() {
   }
 
   if (submitted) {
+    const score = answers.filter((ans, idx) => ans === questions[idx].answer).length;
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-900 text-gray-100 font-sans px-4">
-        <Card className="max-w-2xl w-full bg-white text-black">
+      <div className="min-h-screen flex items-start justify-center bg-gray-900 text-gray-100 font-sans px-4 py-8">
+        <Card className="max-w-3xl w-full bg-white text-black">
           <CardContent className="p-6 space-y-6">
             {/* Resultado global */}
             <p className="text-2xl font-bold">
-              Resultado de {userName}: {score} de {questions.length} correctas (
-              {Math.round((score / questions.length) * 100)}%)
+              Resultado de {userName}: {score} de {questions.length} correctas ({Math.round((score / questions.length) * 100)}%)
             </p>
 
-            {/* Resumen por pregunta */}
+            {/* Resumen detallado por pregunta */}
             <div>
-              <h3 className="text-xl font-semibold">Resumen por pregunta</h3>
-              <ul className="mt-2 space-y-2">
-                {questions.map((q, idx) => {
-                  const userAns = answers[idx];
-                  const acertada = userAns === q.answer;
-                  return (
-                    <li
-                      key={idx}
-                      className="flex justify-between items-center"
-                    >
-                      <span>Pregunta {idx + 1}</span>
-                      <span
-                        className={
-                          acertada ? "text-green-600" : "text-red-600"
-                        }
-                      >
-                        {acertada ? "Acertada" : "Fallada"}
-                      </span>
-                    </li>
-                  );
-                })}
-              </ul>
+              <h3 className="text-xl font-semibold mb-4">Resumen detallado</h3>
+              {questions.map((q, idx) => {
+                const userAns = answers[idx];
+                return (
+                  <div key={idx} className="mb-6 p-4 border rounded bg-gray-50">
+                    <p className="font-semibold mb-2">
+                      {idx + 1}. {q.question}
+                    </p>
+                    <ul>
+                      {q.options.map((opt, oidx) => {
+                        const isCorrect = opt === q.answer;
+                        const isSelected = opt === userAns;
+                        return (
+                          <li key={oidx} className="flex items-center mb-1">
+                            {isCorrect && (
+                              <CheckCircleIcon className="w-5 h-5 text-green-600 mr-2" />
+                            )}
+                            {!isCorrect && isSelected && (
+                              <XCircleIcon className="w-5 h-5 text-red-600 mr-2" />
+                            )}
+                            <span
+                              className={`${isCorrect || isSelected ? "font-semibold" : ""}`}
+                            >
+                              {opt}
+                            </span>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                );
+              })}
             </div>
           </CardContent>
         </Card>
       </div>
     );
   }
-
+  
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100 font-sans p-4">
       <div className="max-w-2xl mx-auto mb-4">
