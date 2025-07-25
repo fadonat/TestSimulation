@@ -182,6 +182,7 @@ export default function QuizApp() {
           <Card className="bg-gray-800">
             <CardContent className="p-6 space-y-6">
               <h1 className="text-xl font-bold">Pregunta {current + 1}</h1>
+              
               <h2>
               <p>{questions[current].question}</p>
               </h2>
