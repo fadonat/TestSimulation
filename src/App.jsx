@@ -82,16 +82,6 @@ const questions = [
     answer: 2
   },
   {
-    question: "¿Cuál es el propósito de las Client Variables en OutSystems?",
-    options: [
-      "Almacenar datos persistentes en el servidor.",
-      "Compartir datos entre usuarios.",
-      "Guardar información específica del usuario en el cliente.",
-      "Guardar datos globales del módulo."
-    ],
-    answer: 2
-  },
-  {
     question: "¿Qué evento del ciclo de vida de una Screen se activa justo antes de que la Screen se muestre al usuario?",
     options: [
       "OnReady",
@@ -440,136 +430,6 @@ const questions = [
       "Controlar condiciones en Client Actions."
     ],
     answer: 1
-  },
-  {
-    question: "¿Qué estructura permite organizar múltiples opciones de navegación en una aplicación?",
-    options: [
-      "Tabs",
-      "Popups",
-      "Menu",
-      "Links"
-    ],
-    answer: 2
-  },
-  {
-    question: "¿Qué pasa si un usuario intenta acceder a una Entity Server protegida sin estar autenticado?",
-    options: [
-      "Recibe un mensaje de validación.",
-      "Se redirige automáticamente al login.",
-      "Se lanza una excepción de seguridad.",
-      "La pantalla se queda en blanco."
-    ],
-    answer: 2
-  },
-  {
-    question: "¿Cuál es el beneficio de usar Aggregates sobre SQL personalizado?",
-    options: [
-      "Mayor flexibilidad para complejidad.",
-      "Mayor rendimiento en tiempo de ejecución.",
-      "Optimización automática por la plataforma.",
-      "Soporte de todos los tipos de joins posibles."
-    ],
-    answer: 2
-  },
-  {
-    question: "¿Qué propiedad se usa para enlazar dinámicamente un Input con una variable?",
-    options: [
-      "Variable",
-      "InputValue",
-      "Binding",
-      "Source"
-    ],
-    answer: 0
-  },
-  {
-    question: "¿Qué widget permite al usuario seleccionar una fecha?",
-    options: [
-      "Dropdown",
-      "Calendar",
-      "DatePicker",
-      "Input"
-    ],
-    answer: 2
-  },
-  {
-    question: "¿Cuál es el propósito del evento OnChange en un Dropdown?",
-    options: [
-      "Validar todos los campos de la Screen.",
-      "Actualizar la base de datos automáticamente.",
-      "Ejecutar lógica cuando se selecciona una opción diferente.",
-      "Recargar la pantalla completa."
-    ],
-    answer: 2
-  },
-  {
-    question: "¿Qué significa que un Entity tenga el atributo 'Is System' activado?",
-    options: [
-      "Está disponible para todos los usuarios.",
-      "Es una Entity utilizada por el sistema para control interno.",
-      "Debe usarse exclusivamente en Client Actions.",
-      "Está expuesta a sistemas externos."
-    ],
-    answer: 1
-  },
-  {
-    question: "¿Qué componente se usa para agrupar elementos visuales sin añadir estilo por defecto?",
-    options: [
-      "Grid",
-      "Container",
-      "Placeholder",
-      "Section"
-    ],
-    answer: 1
-  },
-  {
-    question: "¿Qué se puede hacer en una Screen que utiliza OnAfterFetch?",
-    options: [
-      "Modificar parámetros de entrada.",
-      "Actualizar datos antes de mostrarlos.",
-      "Detener la ejecución de la Screen.",
-      "Redirigir a otra Screen sin lógica."
-    ],
-    answer: 1
-  },
-  {
-    question: "¿Cuál es la diferencia entre Client Action y Server Action?",
-    options: [
-      "Client Actions ejecutan lógica en el servidor.",
-      "Server Actions se usan para lógica de presentación.",
-      "Client Actions corren en el navegador, Server Actions en el servidor.",
-      "No hay diferencia, ambos se comportan igual."
-    ],
-    answer: 2
-  },
-  {
-    question: "¿Qué propiedad de un botón activa las validaciones del formulario?",
-    options: [
-      "Validate",
-      "CheckForm",
-      "FormValid",
-      "Validations"
-    ],
-    answer: 3
-  },
-  {
-    question: "¿Qué técnica se recomienda para evitar duplicación de lógica en múltiples Screens?",
-    options: [
-      "Copiar la lógica entre Screens.",
-      "Crear Client Actions duplicadas.",
-      "Encapsular la lógica en Server Actions reutilizables.",
-      "Usar Entity Actions en cada Screen."
-    ],
-    answer: 2
-  },
-  {
-    question: "¿Qué pasa si se llama una Server Action sin configurar sus parámetros obligatorios?",
-    options: [
-      "Se ignoran los parámetros.",
-      "Se lanza una excepción de validación.",
-      "La acción no se ejecuta.",
-      "La plataforma asigna valores por defecto."
-    ],
-    answer: 1
   }
 ];
 
@@ -639,11 +499,39 @@ export default function QuizApp() {
   if (submitted) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-900 text-gray-100 font-sans px-4">
-        <Card className="max-w-2xl w-full bg-green-100 text-black">
-          <CardContent className="p-6">
+        <Card className="max-w-2xl w-full bg-white text-black">
+          <CardContent className="p-6 space-y-6">
+            {/* Resultado global */}
             <p className="text-2xl font-bold">
-              Resultado de {userName}: {score} de {questions.length} correctas ({Math.round((score / questions.length) * 100)}%)
+              Resultado de {userName}: {score} de {questions.length} correctas (
+              {Math.round((score / questions.length) * 100)}%)
             </p>
+
+            {/* Resumen por pregunta */}
+            <div>
+              <h3 className="text-xl font-semibold">Resumen por pregunta</h3>
+              <ul className="mt-2 space-y-2">
+                {questions.map((q, idx) => {
+                  const userAns = answers[idx];
+                  const acertada = userAns === q.answer;
+                  return (
+                    <li
+                      key={idx}
+                      className="flex justify-between items-center"
+                    >
+                      <span>Pregunta {idx + 1}</span>
+                      <span
+                        className={
+                          acertada ? "text-green-600" : "text-red-600"
+                        }
+                      >
+                        {acertada ? "Acertada" : "Fallada"}
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           </CardContent>
         </Card>
       </div>
