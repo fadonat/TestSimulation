@@ -45,9 +45,5 @@
 .next-button-container {
   margin-top: 20px;
   display: flex;
-  justify-content: flex-end;
-}
-
-.start-button {
-  margin-left: 10px;
+  justify-content: center;
 }

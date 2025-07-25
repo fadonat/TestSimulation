@@ -135,9 +135,11 @@ export default function QuizApp() {
               value={userName}
               onChange={(e) => setUserName(e.target.value)}
             />
-            <Button className="start-button" onClick={handleStart} disabled={!userName.trim()}>
+            <p>
+            <Button onClick={handleStart} disabled={!userName.trim()}>
               Comenzar
             </Button>
+            </p>
           </CardContent>
         </Card>
       </div>
@@ -179,8 +181,10 @@ export default function QuizApp() {
         >
           <Card className="bg-gray-800">
             <CardContent className="p-6 space-y-6">
-              <h2 className="text-xl font-bold">Pregunta {current + 1}</h2>
+              <h1 className="text-xl font-bold">Pregunta {current + 1}</h1>
+              <h2>
               <p>{questions[current].question}</p>
+              </h2>
               <RadioGroup
                 value={answers[current]?.toString() || ""}
                 onValueChange={handleSelect}
