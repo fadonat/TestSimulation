@@ -135,7 +135,7 @@ export default function QuizApp() {
               value={userName}
               onChange={(e) => setUserName(e.target.value)}
             />
-            <Button onClick={handleStart} disabled={!userName.trim()}>
+            <Button className="start-button" onClick={handleStart} disabled={!userName.trim()}>
               Comenzar
             </Button>
           </CardContent>
@@ -197,7 +197,7 @@ export default function QuizApp() {
                   );
                 })}
               </RadioGroup>
-              <div className="flex justify-end mt-5">
+              <div className="next-button-container">
                 <Button onClick={handleNext}>
                   {current === questions.length - 1 ? "Enviar" : "Siguiente"}
                 </Button>
