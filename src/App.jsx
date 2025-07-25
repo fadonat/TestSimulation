@@ -146,7 +146,7 @@ export default function QuizApp() {
 
   if (submitted) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-900 text-gray-100 font-sans">
+      <div className="min-h-screen flex items-center justify-center bg-gray-900 text-gray-100 font-sans px-4">
         <Card className="max-w-2xl w-full bg-green-100 text-black">
           <CardContent className="p-6">
             <p className="text-2xl font-bold">
@@ -197,7 +197,7 @@ export default function QuizApp() {
                   );
                 })}
               </RadioGroup>
-              <div className="flex justify-end mt-[30px]">
+              <div className="flex justify-end mt-5">
                 <Button onClick={handleNext}>
                   {current === questions.length - 1 ? "Enviar" : "Siguiente"}
                 </Button>
